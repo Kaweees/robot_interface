@@ -182,48 +182,6 @@ class UnitreeInterface:
     # ------------------------------------------------------------------
 
     @staticmethod
-    def create_g1(network_interface: str, domain_id: int    ) -> UnitreeInterface:
-        """Create G1 robot interface."""
-        return UnitreeInterface(
-            network_interface,
-            domain_id,
-            RobotConfig(
-                robot_type=RobotType.G1,
-                message_type=MessageType.HG,
-                num_motors=G1_NUM_MOTOR,
-                name=UnitreeInterface._derive_robot_name(RobotType.G1, MessageType.HG)
-            ),
-        )
-
-    @staticmethod
-    def create_h1(network_interface: str, domain_id: int) -> UnitreeInterface:
-        """Create H1 robot interface."""
-        return UnitreeInterface(
-            network_interface,
-            domain_id,
-            RobotConfig(
-                robot_type=RobotType.H1,
-                message_type=MessageType.GO2,
-                num_motors=H1_NUM_MOTOR,
-                name=UnitreeInterface._derive_robot_name(RobotType.H1, MessageType.GO2)
-            )
-        ),
-
-    @staticmethod
-    def create_h1_2(network_interface: str, domain_id: int) -> UnitreeInterface:
-        """Create H1-2 robot interface."""
-        return UnitreeInterface(
-            network_interface,
-            domain_id,
-            RobotConfig(
-                robot_type=RobotType.H1_2,
-                message_type=MessageType.HG,
-                num_motors=H1_2_NUM_MOTOR,
-                name=UnitreeInterface._derive_robot_name(RobotType.H1_2, MessageType.HG)
-            ),
-        )
-
-    @staticmethod
     def create_custom(
         network_interface: str,
         num_motors: int,
@@ -261,11 +219,38 @@ def create_robot(
         case RobotType.CUSTOM:
             raise ValueError("Use `create_robot_with_config` or `UnitreeInterface.create_custom` for CUSTOM robots.")
         case RobotType.G1:
-            return UnitreeInterface.create_g1(network_interface, domain_id)
+            return UnitreeInterface(
+                network_interface,
+                domain_id,
+                RobotConfig(
+                    robot_type=RobotType.G1,
+                    message_type=MessageType.HG,
+                    num_motors=G1_NUM_MOTOR,
+                    name=UnitreeInterface._derive_robot_name(RobotType.G1, MessageType.HG),
+                ),
+            )
         case RobotType.H1:
-            return UnitreeInterface.create_h1(network_interface, domain_id)
+            return UnitreeInterface(
+                network_interface,
+                domain_id,
+                RobotConfig(
+                    robot_type=RobotType.H1,
+                    message_type=MessageType.GO2,
+                    num_motors=H1_NUM_MOTOR,
+                    name=UnitreeInterface._derive_robot_name(RobotType.H1, MessageType.GO2),
+                ),
+            )
         case RobotType.H1_2:
-            return UnitreeInterface.create_h1_2(network_interface, domain_id)
+            return UnitreeInterface(
+                network_interface,
+                domain_id,
+                RobotConfig(
+                    robot_type=RobotType.H1_2,
+                    message_type=MessageType.HG,
+                    num_motors=H1_2_NUM_MOTOR,
+                    name=UnitreeInterface._derive_robot_name(RobotType.H1_2, MessageType.HG),
+                ),
+            )
 
 
 def create_robot_with_config(network_interface: str, domain_id: int, config: RobotConfig) -> UnitreeInterface:
