@@ -32,7 +32,7 @@ ignore = [
 ]
 
 [lint.isort]
-known-first-party = ["modern_python", "core"]
+known-first-party = ["unitree_interface"]
 
 [lint.pydocstyle]
 convention = "google"
